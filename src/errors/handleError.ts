@@ -1,10 +1,11 @@
-import type {
-  StandardResponse,
-  StandardError,
-  ErrorContext,
-  RequestContext,
-  ResponseShaper,
-  ErrorConfig,
+import {
+  type StandardResponse,
+  type StandardError,
+  type ErrorContext,
+  type RequestContext,
+  type ResponseShaper,
+  type ErrorConfig,
+  FetchError,
 } from "../types";
 
 async function handleError<T>(
@@ -39,7 +40,7 @@ async function handleError<T>(
 
   if (safe) return shaped;
 
-  throw Object.assign(new Error(shaped.message), shaped);
+  throw new FetchError(res, shaped.message);
 }
 
 export { handleError };

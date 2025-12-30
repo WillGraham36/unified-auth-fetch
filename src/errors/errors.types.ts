@@ -16,3 +16,11 @@ export interface ErrorConfig {
   handleClientError?(error: StandardError): unknown;
   handleServerError?(error: StandardError, ctx: RequestContext): unknown;
 }
+
+export class FetchError extends Error {
+  response: Response;
+  constructor(response: Response, message?: string) {
+    super(message ?? `HTTP ${response.status}: ${response.statusText}`);
+    this.response = response;
+  }
+}
