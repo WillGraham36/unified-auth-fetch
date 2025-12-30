@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "name": "next-safe-fetch",
+  "files": [
+    "./bin/*",
+    "./lib/*"
+  ],
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "prepublish": "npm run build"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WillGraham36/next-safe-fetch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WillGraham36/next-safe-fetch/issues"
+  },
+  "homepage": "https://github.com/WillGraham36/next-safe-fetch#readme",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "jsdom": "^27.4.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.1",
+    "vitest": "^4.0.16"
+  }
+}
