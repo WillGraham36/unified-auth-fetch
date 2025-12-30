@@ -2,6 +2,7 @@ import type {
   FetchClientConfig,
   RequestContext,
   RedirectContext,
+  RedirectResult,
 } from "../types";
 
 async function handleRedirect(
@@ -9,11 +10,11 @@ async function handleRedirect(
   ctx: RequestContext,
   redirects?: FetchClientConfig["redirects"],
   onRedirect?: (rctx: RedirectContext) => Promise<void> | void
-): Promise<void> {
-  if (res.status < 300 || res.status >= 400) return;
+): Promise<RedirectResult> {
+  if (res.status < 300 || res.status >= 400) return { handled: false };
 
   const location = res.headers.get("location");
-  if (!location) return;
+  if (!location) return { handled: false };
 
   const rctx: RedirectContext = {
     location,
@@ -36,6 +37,7 @@ async function handleRedirect(
       `serverRedirectHandler did not terminate for redirect to ${location}`
     );
   }
+  return { handled: true, location, status: res.status };
 }
 
 export { handleRedirect };

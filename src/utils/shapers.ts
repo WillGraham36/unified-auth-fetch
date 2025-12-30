@@ -1,10 +1,8 @@
-// ============================================================================
-// Default Response Shaper
-// ============================================================================
+import { FullResponseShaper, StandardResponse } from "../types";
 
-import { ResponseShaper, StandardResponse } from "../types";
-
-function createStandardShaper(): ResponseShaper<StandardResponse<any>> {
+export function createStandardShaper(): FullResponseShaper<
+  StandardResponse<any>
+> {
   return {
     success({ data, response }) {
       return {
@@ -25,7 +23,14 @@ function createStandardShaper(): ResponseShaper<StandardResponse<any>> {
         raw: ctx.raw,
       };
     },
+
+    redirect({ status, location }) {
+      return {
+        ok: false,
+        redirected: true,
+        status,
+        location,
+      };
+    },
   };
 }
-
-export { createStandardShaper };

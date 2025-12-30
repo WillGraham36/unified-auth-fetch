@@ -71,11 +71,26 @@ export interface StandardError {
   raw: Response;
 }
 
-export type StandardResponse<T> = StandardSuccess<T> | StandardError;
+type StandardRedirect = {
+  ok: false;
+  redirected: true;
+  status: number;
+  location: string;
+};
+
+export type StandardResponse<T> =
+  | StandardSuccess<T>
+  | StandardError
+  | StandardRedirect;
 
 export interface ResponseShaper<TResponse = unknown> {
   success(ctx: { data: unknown; response: Response }): TResponse;
   error(ctx: ErrorContext): StandardError;
+  redirect?(ctx: RedirectContext): StandardRedirect;
+}
+
+export interface FullResponseShaper<T> extends ResponseShaper<T> {
+  redirect(ctx: RedirectContext): StandardRedirect;
 }
 
 // ============================================================================

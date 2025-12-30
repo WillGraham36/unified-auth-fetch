@@ -22,3 +22,7 @@ export interface RedirectConfig {
    */
   serverRedirectHandler?(ctx: RedirectContext): void | Promise<void>;
 }
+
+export type RedirectResult =
+  | { handled: false }
+  | { handled: true; location: string; status: number };
