@@ -9,7 +9,16 @@ function buildUrl(
     throw new Error(`Relative path "${path}" requires a baseUrl`);
   }
 
-  const url = isAbsolute ? new URL(path) : new URL(path, baseUrl!);
+  // Strip leading slash to avoid URL constructor issues
+  const normalizedPath =
+    !isAbsolute && path.startsWith("/") ? path.slice(1) : path;
+
+  const url = isAbsolute
+    ? new URL(path)
+    : new URL(
+        normalizedPath,
+        baseUrl!.endsWith("/") ? baseUrl! : baseUrl! + "/"
+      );
 
   if (params) {
     for (const [k, v] of Object.entries(params)) {
