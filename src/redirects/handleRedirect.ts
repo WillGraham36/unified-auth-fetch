@@ -44,29 +44,6 @@ async function handleRedirect(
     location,
     status: res.status,
   };
-
-  // const rctx: RedirectContext = {
-  //   location,
-  //   status: res.status,
-  //   ctx,
-  // };
-
-  // // Request-level hook (always observational)
-  // await onRedirect?.(rctx);
-
-  // // Global observational hook
-  // await redirects?.onRedirectSideEffect?.(rctx);
-
-  // // Server-only authoritative handler
-  // if (ctx.isServer && redirects?.serverRedirectHandler) {
-  //   await redirects.serverRedirectHandler(rctx);
-
-  //   // If the handler does not throw or terminate, prevent silent fallthrough
-  //   throw new Error(
-  //     `serverRedirectHandler did not terminate for redirect to ${location}`
-  //   );
-  // }
-  // return { handled: true, location, status: res.status };
 }
 
 export { handleRedirect };

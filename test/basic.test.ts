@@ -95,8 +95,8 @@ describe("basic fetch client usage", () => {
 
     expect(global.fetch).toHaveBeenCalledOnce();
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://example.com/users/1",
       expect.objectContaining({
+        url: "https://example.com/users/1",
         method: "GET",
       })
     );
